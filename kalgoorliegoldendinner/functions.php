@@ -73,7 +73,7 @@ Timber::$autoescape = false;
  * We're going to configure our theme inside of a subclass of Timber\Site
  * You can move this to its own file and include here via php's include("MySite.php")
  */
-class KalbarriSkywalkDinner extends Timber\Site
+class KalgoorlieGoldenDinner extends Timber\Site
 {
 	/** Add timber support. */
 	public function __construct()
@@ -121,8 +121,8 @@ class KalbarriSkywalkDinner extends Timber\Site
     /** This is where you can register custom CSS & JS files. */
     public function register_assets()
     {
-        wp_enqueue_style('kalbarriskywalkdinner', get_stylesheet_directory_uri() . '/static/style.css', false, filemtime(get_stylesheet_directory() . '/static/style.css'));
-        wp_enqueue_script('kalbarriskywalkdinner', get_stylesheet_directory_uri() . '/static/site.js', false, filemtime(get_stylesheet_directory() . '/static/site.js') );
+        wp_enqueue_style('kalgoorliegoldendinner', get_stylesheet_directory_uri() . '/static/style.css', false, filemtime(get_stylesheet_directory() . '/static/style.css'));
+        wp_enqueue_script('kalgoorliegoldendinner', get_stylesheet_directory_uri() . '/static/site.js', false, filemtime(get_stylesheet_directory() . '/static/site.js') );
 
         // wp_enqueue_style('adobe-fonts', 'https://use.typekit.net/PASTE_PROJECT_ID_HERE.css');
     }
@@ -182,7 +182,7 @@ class KalbarriSkywalkDinner extends Timber\Site
 		 */
 		register_nav_menus(
 			array(
-				'primary' => __('Primary Menu', 'kalbarriskywalkdinner'),
+				'primary' => __('Primary Menu', 'kalgoorliegoldendinner'),
 			)
 		);
 
@@ -193,4 +193,4 @@ class KalbarriSkywalkDinner extends Timber\Site
 	}
 }
 
-new KalbarriSkywalkDinner();
+new KalgoorlieGoldenDinner();
