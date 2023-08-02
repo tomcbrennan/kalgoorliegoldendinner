@@ -1,0 +1,209 @@
+{% extends 'base.twig' %}
+
+{% block hero %}
+	<section class="min-h-screen w-full flex items-center justify-center overlay">
+		{% if fields.home_banner_video %}
+			<video preload="auto"
+				loop
+				autoplay
+				muted
+				playsinline
+				class="object-cover w-full h-full absolute top-0 left-0"
+				title="Kalbarri Skywalk Dinner Video">
+				<source src="{{ fields.home_banner_video }}" type="video/mp4" class="w-full h-full absolute top-0 left-0" />Your
+				browser does not support the video tag.
+			</video>
+		{% else %}
+			{% include 'partial/image.twig' with {
+				image: Image(fields.home_banner_background).src,
+				alt: 'Kalbarri Skywalk',
+				class: 'object-cover object-center absolute top-0 left-0 w-full h-full pointer-events-none'
+			} %}
+		{% endif %}
+		<div class="container flex flex-col items-center justify-center text-center relative z-10">
+			<div class="flex flex-col gap-2 items-center text-center mb-3 md:mb-6">
+				{% include 'partial/image.twig' with {
+					image: '/wp-content/uploads/2023/04/best4travelLogo.png',
+					alt: 'Best 4 Travel',
+					class: 'w-[55px] md:w-[85px]'
+				} %}
+				<span>Best 4 Travel Presents:</span>
+			</div>
+			<h1 class="text-white mb-10">
+				{{ fields.home_banner_heading }}
+			</h1>
+			<div class="flex flex-col gap-10 md:gap-20 items-center">
+				<nav class="grid grid-cols-3 gap-10 max-md:grid-cols-2 max-md:gap-4">
+					<a class="nav-link max-md:w-full" href="#events">Upcoming</a>
+					<a class="nav-link max-md:w-full" href="#packages">Packages</a>
+					<a class="nav-link max-md:w-full max-md:col-span-2" href="#book">Book Now</a>
+				</nav>
+				{% if fields.home_banner_video %}
+					<a href="https://www.youtube.com/watch?v=aPY1KHpkT18&t=151s"
+						target="_blank"
+						class="cursor-pointer relative z-10 w-fit font-light text-sm flex items-center gap-3">
+						{% include 'icons/play.twig' %}Watch Full Video
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block content %}
+	<section id="events" class="bg-black">
+		<div class="grid md:grid-cols-2 gap-6">
+			<div class="w-full flex flex-col md:gap-20 items-center md:justify-center px-6 md:px-16">
+				<h2 data-animate class="md:text-center">
+					Upcoming Events
+				</h2>
+				<div data-animate-right>
+					{% include 'icons/cheers.twig' with {
+						class: 'w-32 max-md:hidden'
+					} %}
+				</div>
+			</div>
+			<div class="w-full h-full relative">
+				<div class="flex flex-col gap-3">
+					{% for event in events %}
+						<div class="flex flex-col gap-3 max-md:text-center">
+							<p class="text-xl p-5 bg-brand">
+								{% if event.date_to %}
+									{{ event.date_from|date('l jS F Y') }} - {{ event.date_to|date('l jS F Y') }}
+								{% elseif event.date_from %}
+									{{ event.date_from|date('l jS F Y') }}
+								{% endif %}
+							</p>
+							<div class="flex flex-col gap-3 px-5">
+								<p>
+									{{ event.content }}
+								</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+	{% if fields.home_image_gallery %}
+		<section class="py-0 grid grid-cols-2 md:grid-cols-3">
+			{% for item in fields.home_image_gallery %}
+				{% include 'partial/image.twig' with {
+					image: Image(item.image).src,
+					alt: 'Kalbarri Skywalk Dinner and Tour',
+					class: 'aspect-16/9 object-cover object-center top-0 left-0 w-full h-full pointer-events-none'
+				} %}
+			{% endfor %}
+		</section>
+	{% endif %}
+	<section id="reviews" class="bg-lightBlack py-0">
+			<div data-animate-left class="reviews-slider cursor-grab">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide px-6 lg:px-20 bg-brand !flex !items-center !justify-center">
+						<div class="flex flex-col items-center text-center justify center gap-4">
+							<h4>Swipe to read reviews from our attendees</h4>
+							{% include "icons/arrow-right.twig" with { class: "w-12 md:w-24" } %}
+						</div>
+					</div>
+					{% for review in reviews %}
+						<div class="swiper-slide border-r border-r-white border-opacity-20 pt-8 pb-24 md:pt-16 md:pb-32">
+							<div class="flex flex-col gap-2">
+								<p>
+									{{ review.content }}
+								</p>
+								<h6>
+									- {{ review.title }}
+								</h6>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="swiper-pagination mb-5"></div>
+			</div>
+	</section>
+	<section id="packages" class="bg-black">
+		<div class="container !max-w-none relative z-10">
+			<div class="flex flex-col gap-10">
+				<h2 class="flex justify-center pb-3 border-b border-b-white text-center">
+					Packages
+				</h2>
+				<div data-aos="fade-up" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{% for package in packages %}
+						<div data-animate class="bg-lightBlack flex flex-col items-center text-center">
+							<h4 class="bg-brand text-center px-10 py-4 w-full md:min-h-[130px] flex items-center justify-center">
+								{{ package.title }}
+							</h4>
+							<div class="p-10 flex flex-col items-center text-center gap-6 w-full">
+								{% if package.date_to %}
+									{{ package.date_from|date('jS F Y') }} - {{ package.date_to|date('jS F Y') }}
+								{% elseif package.date_from %}
+									{{ package.date_from|date('jS F Y') }}
+								{% endif %}
+								<p class="is-h6">
+									{{ package.price }}
+								</p>
+								{% if package.flyer %}
+									<a href="{{ package.flyer }}" class="button flex items-center gap-3" target="_blank">
+										Download Flyer{% include 'icons/download.twig' %}
+									</a>
+								{% else %}
+									<div class="button !bg-red-600 !bg-opacity-30 cursor-not-allowed flex items-center gap-3">
+										No Flyer Available
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="book" class="py-0">
+		<div class="flex flex-col gap-10 relative z-10">
+			<div class="grid md:grid-cols-2">
+				<div class="relative px-6 lg:px-20 py-10 lg:py-24">
+					{% include 'partial/image.twig' with {
+						image: Image(fields.home_book_now_background).src,
+						alt: 'Kalbarri',
+						class: 'overlay object-cover object-center absolute top-0 left-0 w-full h-full pointer-events-none'
+					} %}
+					<div class="flex flex-col gap-8 relative z-10">
+						<h2 data-animate class="border-b border-b-white pb-3 flex">
+							Book Now
+						</h2>
+						<div data-animate-right class="flex flex-col gap-8">
+							{{ fields.home_book_now_content }}
+							<a id="button-booking"
+								class="button button-booking rezdy rezdy-modal book-btn"
+								href="https://best4travel858.rezdy.com">
+								Select a booking option
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-col gap-8 bg-brand px-6 lg:px-20 py-10 lg:py-24">
+					<h5 class="is-h5">
+						Have a question?
+					</h5>
+					<p>
+						For any questions, please contact us by selecting an option below for more information.
+					</p>
+					<span class="flex items-center gap-3 text-lg">
+						{% include 'icons/phone.twig' %} <a href="tel:{{ options.phone }}" class="hover-underline">{{
+								options.phone
+							}}</a>
+					</span>
+					<span class="flex items-center gap-3 text-lg">
+						{% include 'icons/mail.twig' %} <a href="mailto:{{ options.email }}" class="hover-underline">{{
+								options.email
+							}}</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="https://best4travel858.rezdy.com/pluginJs?script=modal"></script>
+{% endblock %}
