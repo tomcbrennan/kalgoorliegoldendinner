@@ -142,16 +142,19 @@ class KalgoorlieGoldenDinner extends Timber\Site
 		$context['events'] = Timber::get_posts([
             'post_type' => 'events',
             'post_status' => 'publish',
+			'order' => 'DESC'
         ]);
 
 		$context['packages'] = Timber::get_posts([
             'post_type' => 'packages',
             'post_status' => 'publish',
+			'order' => 'DESC'
         ]);
 
 		$context['reviews'] = Timber::get_posts([
             'post_type' => 'reviews',
             'post_status' => 'publish',
+			'order' => 'DESC'
         ]);
 
 		$context['site']  = $this;

@@ -3,29 +3,23 @@
 {% block hero %}
 	<section class="min-h-screen w-full flex items-center justify-center overlay">
 		{% if fields.home_banner_video %}
-			<video preload="auto"
-				loop
-				autoplay
-				muted
-				playsinline
-				class="object-cover w-full h-full absolute top-0 left-0"
-				title="Kalbarri Skywalk Dinner Video">
-				<source src="{{ fields.home_banner_video }}" type="video/mp4" class="w-full h-full absolute top-0 left-0" />Your
-				browser does not support the video tag.
+			<video preload="auto" loop autoplay muted playsinline class="object-cover w-full h-full absolute top-0 left-0" title="Kalgoorlie Golden Dinner Video">
+				<source src="{{ fields.home_banner_video }}" type="video/mp4" class="w-full h-full absolute top-0 left-0"/>Your
+								browser does not support the video tag.
 			</video>
 		{% else %}
 			{% include 'partial/image.twig' with {
 				image: Image(fields.home_banner_background).src,
-				alt: 'Kalbarri Skywalk',
+				alt: 'Kalgoorlie Super Pit',
 				class: 'object-cover object-center absolute top-0 left-0 w-full h-full pointer-events-none'
 			} %}
 		{% endif %}
 		<div class="container flex flex-col items-center justify-center text-center relative z-10">
 			<div class="flex flex-col gap-2 items-center text-center mb-3 md:mb-6">
 				{% include 'partial/image.twig' with {
-					image: '/wp-content/uploads/2023/04/best4travelLogo.png',
+					image: '/wp-content/uploads/2023/08/Best4Travel-Logo-Icon-White.png',
 					alt: 'Best 4 Travel',
-					class: 'w-[55px] md:w-[85px]'
+					class: 'w-[55px] md:w-[85px] pointer-events-none'
 				} %}
 				<span>Best 4 Travel Presents:</span>
 			</div>
@@ -38,13 +32,6 @@
 					<a class="nav-link max-md:w-full" href="#packages">Packages</a>
 					<a class="nav-link max-md:w-full max-md:col-span-2" href="#book">Book Now</a>
 				</nav>
-				{% if fields.home_banner_video %}
-					<a href="https://www.youtube.com/watch?v=aPY1KHpkT18&t=151s"
-						target="_blank"
-						class="cursor-pointer relative z-10 w-fit font-light text-sm flex items-center gap-3">
-						{% include 'icons/play.twig' %}Watch Full Video
-					</a>
-				{% endif %}
 			</div>
 		</div>
 	</section>
@@ -69,7 +56,9 @@
 						<div class="flex flex-col gap-3 max-md:text-center">
 							<p class="text-xl p-5 bg-brand">
 								{% if event.date_to %}
-									{{ event.date_from|date('l jS F Y') }} - {{ event.date_to|date('l jS F Y') }}
+									{{ event.date_from|date('l jS F Y') }}
+									-
+									{{ event.date_to|date('l jS F Y') }}
 								{% elseif event.date_from %}
 									{{ event.date_from|date('l jS F Y') }}
 								{% endif %}
@@ -96,7 +85,8 @@
 			{% endfor %}
 		</section>
 	{% endif %}
-	<section id="reviews" class="bg-lightBlack py-0">
+	{% if reviews %}
+		<section id="reviews" class="bg-lightBlack py-0">
 			<div data-animate-left class="reviews-slider cursor-grab">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide px-6 lg:px-20 bg-brand !flex !items-center !justify-center">
@@ -112,7 +102,8 @@
 									{{ review.content }}
 								</p>
 								<h6>
-									- {{ review.title }}
+									-
+									{{ review.title }}
 								</h6>
 							</div>
 						</div>
@@ -120,7 +111,9 @@
 				</div>
 				<div class="swiper-pagination mb-5"></div>
 			</div>
-	</section>
+		</section>
+	{% endif %}
+
 	<section id="packages" class="bg-black">
 		<div class="container !max-w-none relative z-10">
 			<div class="flex flex-col gap-10">
@@ -135,7 +128,9 @@
 							</h4>
 							<div class="p-10 flex flex-col items-center text-center gap-6 w-full">
 								{% if package.date_to %}
-									{{ package.date_from|date('jS F Y') }} - {{ package.date_to|date('jS F Y') }}
+									{{ package.date_from|date('jS F Y') }}
+									-
+									{{ package.date_to|date('jS F Y') }}
 								{% elseif package.date_from %}
 									{{ package.date_from|date('jS F Y') }}
 								{% endif %}
@@ -173,9 +168,7 @@
 						</h2>
 						<div data-animate-right class="flex flex-col gap-8">
 							{{ fields.home_book_now_content }}
-							<a id="button-booking"
-								class="button button-booking rezdy rezdy-modal book-btn"
-								href="https://best4travel858.rezdy.com">
+							<a id="button-booking" class="button button-booking rezdy rezdy-modal book-btn" href="https://best4travel858.rezdy.com">
 								Select a booking option
 							</a>
 						</div>
@@ -189,12 +182,14 @@
 						For any questions, please contact us by selecting an option below for more information.
 					</p>
 					<span class="flex items-center gap-3 text-lg">
-						{% include 'icons/phone.twig' %} <a href="tel:{{ options.phone }}" class="hover-underline">{{
+						{% include 'icons/phone.twig' %}
+						<a href="tel:{{ options.phone }}" class="hover-underline">{{
 								options.phone
 							}}</a>
 					</span>
 					<span class="flex items-center gap-3 text-lg">
-						{% include 'icons/mail.twig' %} <a href="mailto:{{ options.email }}" class="hover-underline">{{
+						{% include 'icons/mail.twig' %}
+						<a href="mailto:{{ options.email }}" class="hover-underline">{{
 								options.email
 							}}</a>
 					</span>
