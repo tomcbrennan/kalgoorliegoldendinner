@@ -126,10 +126,6 @@
 .w-\[55px\] {
     width: 55px
 }
-.w-fit {
-    width: -moz-fit-content;
-    width: fit-content
-}
 .w-32 {
     width: 8rem
 }
@@ -167,9 +163,6 @@
 }
 .transform {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-}
-.cursor-pointer {
-    cursor: pointer
 }
 .cursor-grab {
     cursor: grab
@@ -385,9 +378,6 @@
     font-size: 1.125rem;
     line-height: 1.75rem
 }
-.font-light {
-    font-weight: 300
-}
 .font-medium {
     font-weight: 500
 }
@@ -508,6 +498,20 @@ body {
         flex-direction: column
     }
     .max-sm\:items-center {
+        align-items: center
+    }
+    .max-sm\:gap-3 {
+        gap: 0.75rem
+    }
+    .max-sm\:gap-1 {
+        gap: 0.25rem
+    }
+    .max-sm\:gap-2 {
+        gap: 0.5rem
+    }
+}
+@media (min-width: 640px) {
+    .sm\:items-center {
         align-items: center
     }
 }
